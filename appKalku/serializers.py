@@ -15,13 +15,24 @@ from .models import (
 )
 
 class UserSerializer(serializers.ModelSerializer):
+    password = serializers.CharField(write_only=True, required=True, min_length=6)
     class Meta:
         model = User
-        fields = ['id', 'full_name', 'email', 'phone', 'password_hash'] 
+        fields = ['id', 'full_name', 'email', 'phone', 'password', 'password_hash'] 
         
         extra_kwargs = {
-            'password_hash': {'write_only': True}
+            'password_hash': {'read_only': True}
         }
+
+    def create(self, validated_data):
+        password = validated_data.pop('password') 
+        
+        user = User.objects.create(**validated_data)
+        
+        user.set_password(password)
+        user.save()
+        
+        return user
 
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:

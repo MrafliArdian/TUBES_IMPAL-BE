@@ -4,8 +4,9 @@ from django.contrib.auth.hashers import make_password
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from rest_framework.permissions import AllowAny
 
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from .models import User
 from .serializers import UserSerializer
         
@@ -26,9 +27,8 @@ class UserViewSet(viewsets.ModelViewSet):
 
         self.perform_create(serializer)
 
-        response_data = serializer.data
-        del response_data['password']
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        response_data = serializer.data.copy()
+        return Response(response_data, status=status.HTTP_201_CREATED)
 
 @api_view(['GET'])
 def api_landing_page(request):

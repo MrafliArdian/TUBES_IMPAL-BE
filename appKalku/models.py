@@ -1,5 +1,6 @@
 from django.db import models
 from django.db.models import JSONField
+from django.contrib.auth.hashers import make_password
 
 class User(models.Model):
         full_name = models.CharField(max_length=100)
@@ -15,6 +16,9 @@ class User(models.Model):
 
         def __str__(self):
                 return self.email
+        
+        def set_password(self, raw_password):
+            self.password_hash = make_password(raw_password)
 
 class Role(models.Model):
     role_name = models.CharField(max_length=50, unique=True)
