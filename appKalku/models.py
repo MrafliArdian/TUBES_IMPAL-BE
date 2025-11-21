@@ -198,7 +198,7 @@ class PensionCalculation(models.Model):
     status = models.CharField(max_length=30, blank=True, null=True) # Misalnya: 'Aman', 'Kurang'
     
     created_at = models.DateTimeField(auto_now_add=True)
-   
+    
     class Meta:
         db_table = 'calc_pensiun'
         verbose_name = "Pension Calculation"
