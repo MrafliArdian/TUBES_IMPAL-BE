@@ -1,3 +1,21 @@
-from django.shortcuts import render
+# artikel/views.py
+from rest_framework import viewsets, permissions
+from .models import Article
+from .serializers import ArticleSerializer
 
-# Create your views here.
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer
+
+    # izin akses:
+    # - list, retrieve  -> boleh umum (Home / halaman Artikel di UI)
+    # - create, update, delete -> harus login (JWT)
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [permissions.AllowAny()]
+        return [permissions.IsAuthenticated()]
+
+    # set author otomatis dari user yang login
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

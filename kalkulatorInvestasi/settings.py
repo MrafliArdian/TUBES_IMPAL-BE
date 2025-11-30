@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appKalku',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
@@ -98,7 +97,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'invest',
         'USER': 'root', 
-        'PASSWORD': 'Jian.kim03',           
+        'PASSWORD': '',           
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
