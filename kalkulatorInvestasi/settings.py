@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -40,6 +41,17 @@ INSTALLED_APPS = [
     'appKalku',
     'rest_framework',
     'corsheaders',
+    'rest_framework_simplejwt',
+    'accounts',
+    'artikel',
+    'dana_darurat',
+    'dana_pensiun',
+    'emas',
+    'history',
+    'kendaraan',
+    'menikah',
+    'pendidikan_anak',
+    'simulasi_kpr'
 ]
 
 MIDDLEWARE = [
@@ -135,10 +147,29 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
+    # Default permission: semua butuh login (JWT).
+    # Nanti kalau ada view yang boleh umum, pakai AllowAny di view-nya (kayak RegisterView kamu).
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+
+    # Renderer: balikin JSON (dan optional Browsable API kalau mau).
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',
     ],
+
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
-    ]
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "AUTH_HEADER_TYPES": ("Bearer",),
 }
