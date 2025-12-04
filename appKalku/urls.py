@@ -10,6 +10,5 @@ router.register(r'v1/users', UserViewSet, basename='user')
 urlpatterns = [
     path('', api_landing_page, name='api-root'),
     path('', include(router.urls)),
-    path('validate-strategy/', ValidateInvestmentStrategyView.as_view(), name='validate-strategy'),
-
+    path('v1/validate-investment/', ValidateInvestmentStrategyView.as_view(), name='validate-investment'),
 ]
