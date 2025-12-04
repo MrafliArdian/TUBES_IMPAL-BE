@@ -45,10 +45,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'accounts',
-<<<<<<< HEAD
-    'kendaraan',
-    'menikah'
-=======
     'artikel',
     'dana_darurat',
     'dana_pensiun',
@@ -58,7 +54,6 @@ INSTALLED_APPS = [
     'menikah',
     'pendidikan_anak',
     'simulasi_kpr'
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
 ]
 
 MIDDLEWARE = [
