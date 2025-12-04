@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+<<<<<<< HEAD
+=======
+
+>>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -20,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'kepo ya? tanya dong!!'
+SECRET_KEY = 'django-insecure-yc&77t&3a5l0d*f2r1t$&i9s!d)ikgb9v2y$20!zzr#d^c!!'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -37,13 +41,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appKalku',
     'rest_framework',
     'corsheaders',
     'rest_framework_simplejwt',
     'accounts',
+<<<<<<< HEAD
     'kendaraan',
     'menikah'
+=======
+    'artikel',
+    'dana_darurat',
+    'dana_pensiun',
+    'emas',
+    'history',
+    'kendaraan',
+    'menikah',
+    'pendidikan_anak',
+    'simulasi_kpr'
+>>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
 ]
 
 MIDDLEWARE = [
