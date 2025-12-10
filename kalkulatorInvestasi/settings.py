@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+<<<<<<< HEAD
+=======
 
+>>>>>>> Dev_Nada
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -42,6 +45,10 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework_simplejwt',
     'accounts',
+<<<<<<< HEAD
+    'kendaraan',
+    'menikah'
+=======
     'artikel',
     'dana_darurat',
     'dana_pensiun',
@@ -51,6 +58,7 @@ INSTALLED_APPS = [
     'menikah',
     'pendidikan_anak',
     'simulasi_kpr'
+>>>>>>> Dev_Nada
 ]
 
 MIDDLEWARE = [
@@ -95,11 +103,22 @@ WSGI_APPLICATION = 'kalkulatorInvestasi.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+<<<<<<< HEAD
+        'NAME': 'kalkulator_db',
+        'USER': 'kalku_user',
+        'PASSWORD': 'Kalku123!',
+        'HOST': '127.0.0.1',
+        'PORT': '3306',
+        'OPTIONS': {
+        'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
+=======
         'NAME': 'invest',
         'USER': 'root', 
         'PASSWORD': '',           
         'HOST': '127.0.0.1',
         'PORT': '3306',
+>>>>>>> Dev_Nada
     }
 }
 
