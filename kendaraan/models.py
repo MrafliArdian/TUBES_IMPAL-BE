@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-
 # Create your models here.
-=======
 from django.conf import settings  # ⬅️ penting
 
 class VehicleCalculation(models.Model):
@@ -37,4 +34,3 @@ class VehicleCalculation(models.Model):
     def __str__(self):
         # jangan assume ada full_name, pakai repr user saja
         return f"Vehicle calc #{self.pk} for {self.user}"
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

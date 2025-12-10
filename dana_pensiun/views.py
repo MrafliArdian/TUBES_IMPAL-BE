@@ -1,8 +1,6 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 
 # Create your views here.
-=======
 # dana_pensiun/views.py
 from decimal import Decimal
 from rest_framework import viewsets, permissions
@@ -20,30 +18,6 @@ def hitung_dana_pensiun(
     pension_years: int,
     monthly_invest: Decimal,
 ):
-    """
-    Implementasi Psucode doang
-    Perhitungan sederhana Dana Pensiun sesuai field di tabelmu.
-
-    1. Hitung pengeluaran bulanan pada saat pensiun:
-       years = retire_age - current_age
-       monthly_expense_at_retire = monthly_expense_now * (1 + inflasi)^years
-
-    2. Total kebutuhan dana pensiun:
-       total_need = monthly_expense_at_retire * 12 * pension_years
-
-    3. Estimasi portofolio:
-       n = years * 12
-       r_year = expected_return_pct / 100
-       r_month = r_year / 12
-
-       estimated_portfolio = FV dari investasi bulanan:
-         FV = monthly_invest * ((1 + r_month)^n - 1) / r_month
-       kalau r_month = 0 → FV = monthly_invest * n
-
-    4. Status:
-       "cukup" kalau estimated_portfolio ≥ total_need
-       else "tidak cukup"
-    """
 
     years_until_retire = max(retire_age - current_age, 0)
     n_months = years_until_retire * 12
@@ -80,14 +54,6 @@ def hitung_dana_pensiun(
 
 
 class PensionViewSet(viewsets.ModelViewSet):
-    """
-    Endpoint CRUD Dana Pensiun:
-    - GET /api/dana-pensiun/          -> list data user
-    - POST /api/dana-pensiun/         -> buat + hitung
-    - GET /api/dana-pensiun/{id}/     -> detail
-    - PUT/PATCH /api/dana-pensiun/{id}/ -> update + hitung ulang
-    - DELETE /api/dana-pensiun/{id}/  -> hapus
-    """
 
     serializer_class = PensionSerializer
     permission_classes = [permissions.IsAuthenticated]
@@ -109,12 +75,39 @@ class PensionViewSet(viewsets.ModelViewSet):
             pension_years=data['pension_years'],
             monthly_invest=data['monthly_invest'],
         )
+        
+        # Generate recommendation
+        is_suitable = (status == 'cukup')
+        years_until_retire = max(data['retire_age'] - data['current_age'], 0)
+        
+        if is_suitable:
+            surplus = estimated_portfolio - total_need
+            recommendation = (
+                f"Selamat! Persiapan pensiun Anda sudah mencukupi. "
+                f"Dengan investasi bulanan Rp {data['monthly_invest']:,.0f} selama {years_until_retire} tahun, "
+                f"estimasi portofolio Anda saat pensiun adalah Rp {estimated_portfolio:,.0f}, "
+                f"melebihi kebutuhan pensiun Rp {total_need:,.0f} untuk {data['pension_years']} tahun. "
+                f"Kelebihan dana sebesar Rp {surplus:,.0f} dapat menjadi buffer atau warisan."
+            )
+        else:
+            shortfall = total_need - estimated_portfolio
+            months_until_retire = years_until_retire * 12
+            additional_monthly = shortfall / months_until_retire if months_until_retire > 0 else shortfall
+            recommendation = (
+                f"Dana pensiun Anda masih kurang. Target kebutuhan untuk {data['pension_years']} tahun pensiun "
+                f"adalah Rp {total_need:,.0f}, namun dengan investasi saat ini hanya akan terkumpul Rp {estimated_portfolio:,.0f}. "
+                f"Kekurangan: Rp {shortfall:,.0f}. "
+                f"Pertimbangkan untuk menambah investasi bulanan sekitar Rp {additional_monthly:,.0f} "
+                f"atau memperpanjang masa kerja sebelum pensiun."
+            )
 
         serializer.save(
             user=self.request.user,
             total_need_at_retire=total_need,
             estimated_portfolio=estimated_portfolio,
             status=status,
+            recommendation=recommendation,
+            is_suitable=is_suitable,
         )
 
     def perform_update(self, serializer):
@@ -135,4 +128,3 @@ class PensionViewSet(viewsets.ModelViewSet):
             estimated_portfolio=estimated_portfolio,
             status=status,
         )
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

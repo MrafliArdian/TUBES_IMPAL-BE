@@ -1,8 +1,5 @@
-<<<<<<< HEAD
 from django.shortcuts import render
 
-# Create your views here.
-=======
 # dana_darurat/views.py
 from decimal import Decimal
 from rest_framework import viewsets, permissions
@@ -24,8 +21,8 @@ def hitung_dana_darurat(
     needed_fund = monthly_expense * n
 
     # konversi return ke bulanan
-    r_year = Decimal(expected_return_pct) / Decimal('100')       # contoh: 10 -> 0.10
-    r_month = r_year / Decimal('12')                             # per bulan
+    r_year = Decimal(expected_return_pct) / Decimal('100')
+    r_month = r_year / Decimal('12')
 
     if r_month > 0:
         # Future value dari dana darurat yang sudah ada
@@ -64,6 +61,27 @@ class EmergencyFundViewSet(viewsets.ModelViewSet):
             monthly_invest=data['monthly_invest'],
             expected_return_pct=data['expected_return_pct'],
         )
+        
+        # Generate recommendation
+        is_suitable = (status == 'cukup')
+        
+        if is_suitable:
+            recommendation = (
+                f"Selamat! Dana darurat Anda sudah mencukupi. "
+                f"Dengan investasi bulanan Rp {data['monthly_invest']:,.0f} selama {data['months_to_save']} bulan, "
+                f"Anda akan memiliki dana darurat sebesar Rp {future_value:,.0f}, melebihi kebutuhan Rp {needed_fund:,.0f}. "
+                f"Kelebihan dana sebesar Rp {gap_amount:,.0f} bisa dialokasikan untuk tujuan finansial lainnya."
+            )
+        else:
+            shortfall = abs(gap_amount)
+            additional_monthly = shortfall / data['months_to_save'] if data['months_to_save'] > 0 else shortfall
+            recommendation = (
+                f"Dana darurat Anda masih kurang. Target kebutuhan adalah Rp {needed_fund:,.0f}, "
+                f"namun dengan investasi saat ini hanya akan terkumpul Rp {future_value:,.0f}. "
+                f"Kekurangan: Rp {shortfall:,.0f}. "
+                f"Pertimbangkan untuk menambah investasi bulanan sekitar Rp {additional_monthly:,.0f} "
+                f"atau perpanjang waktu pengumpulan dana darurat Anda."
+            )
 
         serializer.save(
             user=self.request.user,
@@ -71,6 +89,8 @@ class EmergencyFundViewSet(viewsets.ModelViewSet):
             future_value=future_value,
             gap_amount=gap_amount,
             status=status,
+            recommendation=recommendation,
+            is_suitable=is_suitable,
         )
 
     def perform_update(self, serializer):
@@ -91,4 +111,3 @@ class EmergencyFundViewSet(viewsets.ModelViewSet):
             gap_amount=gap_amount,
             status=status,
         )
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

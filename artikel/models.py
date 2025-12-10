@@ -1,8 +1,3 @@
-<<<<<<< HEAD
-from django.db import models
-
-# Create your models here.
-=======
 # artikel/models.py
 from django.db import models
 from django.conf import settings
@@ -35,4 +30,4 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
+

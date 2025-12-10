@@ -12,10 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-<<<<<<< HEAD
-=======
-
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -53,7 +49,7 @@ INSTALLED_APPS = [
     'kendaraan',
     'menikah',
     'pendidikan_anak',
-    'simulasi_kpr'
+    'simulasi_kpr',
 ]
 
 MIDDLEWARE = [
@@ -150,6 +146,9 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = 'accounts.CustomUser'
 
 REST_FRAMEWORK = {
     # Default permission: semua butuh login (JWT).

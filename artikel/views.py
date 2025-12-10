@@ -1,8 +1,7 @@
-<<<<<<< HEAD
+
 from django.shortcuts import render
 
 # Create your views here.
-=======
 # artikel/views.py
 from rest_framework import viewsets, permissions
 from .models import Article
@@ -24,4 +23,3 @@ class ArticleViewSet(viewsets.ModelViewSet):
     # set author otomatis dari user yang login
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

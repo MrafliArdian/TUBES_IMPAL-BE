@@ -21,7 +21,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/auth/', include('accounts.urls')),
     path('api/artikel/', include('artikel.urls')),
+    path('api/history/', include('history.urls')),
+    
     path('api/dana-darurat/', include('dana_darurat.urls')),
     path('api/dana-pensiun/', include('dana_pensiun.urls')),
     path('api/emas/', include('emas.urls')),
+    path('api/kendaraan/', include('kendaraan.urls')),
+    path('api/menikah/', include('menikah.urls')),
+    path('api/pendidikan-anak/', include('pendidikan_anak.urls')),
+    path('api/simulasi-kpr/', include('simulasi_kpr.urls')),
+    
+
 ]

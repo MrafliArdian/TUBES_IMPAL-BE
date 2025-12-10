@@ -1,8 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
-
 # Create your models here.
-=======
+
 from django.conf import settings
 
 class GoldCalculation(models.Model):
@@ -34,6 +32,12 @@ class GoldCalculation(models.Model):
 
     result_rupiah = models.DecimalField(max_digits=18, decimal_places=2, null=True, blank=True)
     result_grams = models.DecimalField(max_digits=18, decimal_places=5, null=True, blank=True)
+    
+    # Catatan tambahan untuk user
+    notes = models.TextField(
+        blank=True, null=True,
+        help_text='Catatan atau insight tentang investasi emas'
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -43,4 +47,3 @@ class GoldCalculation(models.Model):
 
     def __str__(self):
         return f"{self.mode} - {self.user_id}"
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

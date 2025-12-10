@@ -1,8 +1,6 @@
 from django.db import models
 
-<<<<<<< HEAD
 # Create your models here.
-=======
 from django.conf import settings
 
 class SimulasiKPR(models.Model):
@@ -20,4 +18,3 @@ class SimulasiKPR(models.Model):
     sisa_pokok_setelah_fix = models.FloatField()
     keterangan = models.CharField(max_length=20)
     created_at = models.DateTimeField(auto_now_add=True)
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807

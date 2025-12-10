@@ -1,8 +1,5 @@
 from django.db import models
-<<<<<<< HEAD
-
 # Create your models here.
-=======
 from django.conf import settings
 
 
@@ -36,6 +33,18 @@ class PensionCalculation(models.Model):
         max_length=20,
         null=True, blank=True
     )
+    
+    # Rekomendasi berdasarkan hasil perhitungan
+    recommendation = models.TextField(
+        blank=True, null=True,
+        help_text='Saran dan rekomendasi untuk user'
+    )
+    
+    # Flag untuk quick filter apakah investasi sudah sesuai
+    is_suitable = models.BooleanField(
+        default=False,
+        help_text='True jika dana pensiun cukup/sesuai'
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -45,4 +54,4 @@ class PensionCalculation(models.Model):
 
     def __str__(self):
         return f"Pension {self.user} - {self.created_at.date()}"
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
+

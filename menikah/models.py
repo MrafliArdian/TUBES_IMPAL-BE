@@ -1,8 +1,6 @@
 from django.db import models
-<<<<<<< HEAD
-
 # Create your models here.
-=======
+
 from django.conf import settings  # <-- penting
 
 class MarriageCalculation(models.Model):
@@ -38,4 +36,3 @@ class MarriageCalculation(models.Model):
         
     def __str__(self):
         return f"Marriage Calculation #{self.pk} for {self.user}"
->>>>>>> 44da526b83f40d4dc6b1ef904768a5b18d335807
