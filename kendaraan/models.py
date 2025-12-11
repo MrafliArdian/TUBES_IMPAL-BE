@@ -12,17 +12,35 @@ class VehicleCalculation(models.Model):
     
     # --- Data Input Kendaraan ---
     vehicle_price = models.DecimalField(max_digits=18, decimal_places=2)
-    down_payment = models.DecimalField(max_digits=18, decimal_places=2)
+    down_payment = models.DecimalField(max_digits=18, decimal_places=2)  # DP amount in rupiah
     current_saving = models.DecimalField(max_digits=18, decimal_places=2)
     monthly_invest = models.DecimalField(max_digits=18, decimal_places=2)
-    expected_return_pct = models.DecimalField(max_digits=6, decimal_places=3)
+    expected_return_pct = models.DecimalField(max_digits=6, decimal_places=3)  # per tahun
+    investment_period_months = models.IntegerField()  # berapa bulan mau invest
 
     # --- Data Output ---
     needed_amount = models.DecimalField(
         max_digits=18, decimal_places=2, blank=True, null=True
     )
+    future_value = models.DecimalField(
+        max_digits=18, decimal_places=2, blank=True, null=True
+    )  # Total dana di masa depan
+    gap_amount = models.DecimalField(
+        max_digits=18, decimal_places=2, blank=True, null=True
+    )  # Selisih (future_value - needed_amount)
     status = models.CharField(
         max_length=30, blank=True, null=True
+    )  # "cukup" / "tidak cukup"
+    
+    # --- Recommendations ---
+    is_suitable = models.BooleanField(
+        default=False,
+        help_text='True jika strategi investasi cocok/mencukupi'
+    )
+    recommendation = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Saran untuk user berdasarkan hasil kalkulasi'
     )
 
     created_at = models.DateTimeField(auto_now_add=True)

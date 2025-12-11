@@ -1,6 +1,11 @@
 # kendaraan/urls.py
-from django.urls import path
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import VehicleCalculationViewSet
+
+router = DefaultRouter()
+router.register(r'', VehicleCalculationViewSet, basename='kendaraan')
 
 urlpatterns = [
-    # Placeholder - implement kendaraan endpoints here
+    path('', include(router.urls)),
 ]

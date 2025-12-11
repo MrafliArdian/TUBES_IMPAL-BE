@@ -17,6 +17,8 @@ class EmergencyFundSerializer(serializers.ModelSerializer):
             'future_value',
             'gap_amount',
             'status',
+            'is_suitable',
+            'recommendation',
             'created_at',
         ]
         # field hasil perhitungan dibaca saja
@@ -26,5 +28,7 @@ class EmergencyFundSerializer(serializers.ModelSerializer):
             'future_value',
             'gap_amount',
             'status',
+            'is_suitable',
+            'recommendation',
             'created_at',
         ]

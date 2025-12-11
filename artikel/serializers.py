@@ -14,10 +14,13 @@ class ArticleSerializer(serializers.ModelSerializer):
         fields = [
             'article_id',
             'title',
+            'description',      # Description/summary artikel
             'content',
             'image_url',
+            'source_link',      # Link ke sumber berita
             'created_at',
-            'author',       # id user
-            'author_name',  # username, hanya untuk dibaca
+            'updated_at',
+            'author',           # id user
+            'author_name',      # username, hanya untuk dibaca
         ]
-        read_only_fields = ['article_id', 'created_at', 'author', 'author_name']
+        read_only_fields = ['article_id', 'created_at', 'updated_at', 'author', 'author_name']

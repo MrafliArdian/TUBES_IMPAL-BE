@@ -19,14 +19,29 @@ class MarriageCalculation(models.Model):
     expected_return_pct = models.DecimalField(max_digits=6, decimal_places=3)
     
     # --- Data Output (Bisa NULL jika perhitungan belum selesai) ---
-    gap_now = models.DecimalField(
+    future_value = models.DecimalField(
         max_digits=18, decimal_places=2,
         blank=True, null=True
-    )  # selisih dana sekarang
+    )  # Total dana di masa depan
+    gap_amount = models.DecimalField(
+        max_digits=18, decimal_places=2,
+        blank=True, null=True
+    )  # selisih (target_cost - future_value)
     status = models.CharField(
         max_length=30,
         blank=True, null=True
-    )  # contoh: 'Tercapai', 'Kurang Dana'
+    )  # contoh: 'cukup', 'tidak cukup'
+    
+    # --- Recommendations ---
+    is_suitable = models.BooleanField(
+        default=False,
+        help_text='True jika strategi investasi cocok/mencukupi'
+    )
+    recommendation = models.TextField(
+        blank=True,
+        null=True,
+        help_text='Saran untuk user berdasarkan hasil kalkulasi'
+    )
     
     created_at = models.DateTimeField(auto_now_add=True)
     

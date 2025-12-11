@@ -19,15 +19,17 @@ class Article(models.Model):
     )
 
     title = models.CharField(max_length=200)
-    content = models.TextField()
+    description = models.TextField(help_text='Summary/preview artikel')  # NEW: Description
+    content = models.TextField(blank=True, null=True)  # Optional, bisa kosong
     image_url = models.URLField(max_length=500, blank=True, null=True)
+    source_link = models.URLField(max_length=500, help_text='Link ke sumber artikel asli')  # NEW: Source link
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        db_table = 'articles'      # tabel MySQL yang sudah ada
+        db_table = 'articles'
         ordering = ['-created_at']
 
     def __str__(self):
         return self.title
-

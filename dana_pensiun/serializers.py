@@ -18,6 +18,8 @@ class PensionSerializer(serializers.ModelSerializer):
             'total_need_at_retire',
             'estimated_portfolio',
             'status',
+            'is_suitable',
+            'recommendation',
             'created_at',
         ]
         # field hasil hitung + metadata dibaca saja
@@ -26,5 +28,7 @@ class PensionSerializer(serializers.ModelSerializer):
             'total_need_at_retire',
             'estimated_portfolio',
             'status',
+            'is_suitable',
+            'recommendation',
             'created_at',
         ]
